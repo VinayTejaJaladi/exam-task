@@ -1,8 +1,10 @@
 import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import  {UserContext}  from "../../userContext";
 import './home.css';
 
 const Home: React.FC = () => {
+    const navigation = useNavigate();
     const [name, setName] = useState<string | undefined>('')
     const [gender, setGender] = useState<string | undefined>('')
     const [language, setLanguage] = useState<string | undefined>('')
@@ -15,7 +17,7 @@ const Home: React.FC = () => {
             language: language,
         }
         context.dispatch({value:formValues, type: 'form'})
-        window.history.pushState({},'','/questions')
+        navigation('/questions')
     }
 
     return (

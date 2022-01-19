@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { History } from "history";
-import {Navigator} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {UserContext} from "../../userContext";
 import Header from "../Header/Header";
 import './questions.css';
@@ -13,6 +13,7 @@ import './questions.css';
 // }
 
 const Questions:React.FC = () => {
+    const navigate = useNavigate();
     const [one, setOne] = useState({ answered: false, answer: '', isCorrect: false });
     const [two, setTwo] = useState({ answered: false, answer: '', isCorrect: false });
     const [three, setThree] = useState({ answered: false, answer: '', isCorrect: false });
@@ -148,7 +149,8 @@ const Questions:React.FC = () => {
         values.dispatch({value:three.isCorrect, type:'three'})
         values.dispatch({value:four.isCorrect, type:'four'})
         values.dispatch({value:five.isCorrect, type:'five'})
-        window.history.pushState({},'','/results')
+        // window.history.pushState({},'','/results')
+        navigate('/results')
     }
 
     return (

@@ -24,3 +24,11 @@
 .input-field{
     height: 40px;
 }
+.submit-button{
+    border-radius: 10px;
+    border-width: 0;
+    width: 100px;
+    height: 40px;
+    background-color: aqua;
+    color: white;
+}

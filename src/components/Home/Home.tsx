@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
-import { UserContext } from "../../userContext";
+import  {UserContext}  from "../../userContext";
 import './home.css';
 
-const Home: React.FC = (props) => {
+const Home: React.FC = () => {
     const [name, setName] = useState<string | undefined>('')
     const [gender, setGender] = useState<string | undefined>('')
     const [language, setLanguage] = useState<string | undefined>('')
@@ -15,7 +15,7 @@ const Home: React.FC = (props) => {
             language: language,
         }
         context.dispatch({value:formValues, type: 'form'})
-        
+        window.history.pushState({},'','/questions')
     }
 
     return (
@@ -33,7 +33,7 @@ const Home: React.FC = (props) => {
                     <label htmlFor='language'>Language</label>
                     <input className="input-field" type='text' placeholder="Enter Language" value={language} onChange={(data) => setLanguage(data.target.value)} />
                 </div>
-                <button type="button" onClick={onSubmitHandler}>Submit</button>
+                <button type="button" className="submit-button" onClick={onSubmitHandler}>Submit</button>
             </div>
         </div>
     )

@@ -1,21 +1,27 @@
-import React, { useState, useContext } from "react";
-import { UserContext } from "../../userContext";
+import React, { useState } from "react";
+
 import './home.css';
 
-const Home: React.FC = (props) => {
-    const [name, setName] = useState<string | undefined>('')
-    const [gender, setGender] = useState<string | undefined>('')
-    const [language, setLanguage] = useState<string | undefined>('')
-    const context = useContext(UserContext)
+interface PropTypes {
+    setDetails: React.Dispatch<React.SetStateAction<{
+        name: string;
+        gender: string;
+        language: string;
+    } | null>>
+}
+
+const Home: React.FC<PropTypes> = ({setDetails}) => {
+    const [name, setName] = useState<string>('')
+    const [gender, setGender] = useState<string>('')
+    const [language, setLanguage] = useState<string>('')
 
     const onSubmitHandler = () => {
         const formValues = {
             name: name,
             gender: gender,
             language: language,
-        }
-        context.dispatch({value:formValues, type: 'form'})
-        
+        } 
+        setDetails(formValues)  
     }
 
     return (

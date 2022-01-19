@@ -1,15 +1,20 @@
-import React, { useContext } from "react";
-import { UserContext } from "../userContext";
+import React from "react";
 
-const Results: React.FC = () => {
-    const values = useContext(UserContext);
-    console.log(values.state)
-    console.log("Results Page")
+interface PropTypes{
+    details: {
+        user: {
+            name: string;
+            gender: string;
+            language: string;
+        } | null,
+        answers: string[] | null,
+    }
+}
+
+const Results: React.FC<PropTypes> = ({details}) => {
     return (
         <div>
-            <p>{values.state.name}</p>
-            <p>{values.state.gender}</p>
-            <p>{values.state.language}</p>
+           <p>{details.user && details.user.name}</p>
         </div>
     )
 }

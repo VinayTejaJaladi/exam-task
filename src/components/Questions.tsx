@@ -1,6 +1,10 @@
 import React from "react";
 
-const Questions: React.FC = () => {
+interface PropTypes{
+    setAnswers: React.Dispatch<React.SetStateAction<string[] | null>>
+}
+
+const Questions: React.FC<PropTypes> = ({setAnswers}) => {
     return (
         <div>
             Questions Page

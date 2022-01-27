@@ -37,3 +37,18 @@
     background-color: aqua;
     color: white;
 }
+.matching-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.options-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+.option{
+    width: 40%;
+}

@@ -1,20 +1,59 @@
-import React, { useContext } from "react";
-import {UserContext} from "../../userContext";
+import React, { useContext, useState, useEffect } from "react";
+import { UserContext } from "../../userContext";
+import { Chart } from "react-google-charts";
 
 const Results: React.FC = () => {
     const values = useContext(UserContext);
+    const [noOfCorrect, setNoOfCorrect] = useState(0);
     console.log(values.state)
-    console.log("Results Page")
+
+    useEffect(() => {
+        let count = 0
+        if (values.state.answerOne) {
+            count += 1
+        }
+        if (values.state.answerTwo) {
+            count += 1
+        }
+        if (values.state.answerThree) {
+            count += 1
+        }
+        if (values.state.answerFour) {
+            count += 1
+        }
+        if (values.state.answerFive) {
+            count += 1
+        }
+        setNoOfCorrect(count)
+    },[values.state])
+
+
+    const data = [
+        ["Answer Type", "Number"],
+        ["Correctly Answered", noOfCorrect],
+        ["Incorreclty Answered", 5 - noOfCorrect]
+    ]
+
+    const options = {
+        title: "Exam Result Report",
+    }
+
     return (
         <div>
             <p>{values.state.name}</p>
             <p>{values.state.gender}</p>
             <p>{values.state.language}</p>
-            <p>{values.state.answerOne ? 'True' : 'False'}</p>
-            <p>{values.state.answerTwo ? 'True' : 'False'}</p>
-            <p>{values.state.answerThree ? 'True' : 'False'}</p>
-            <p>{values.state.answerFour ? 'True' : 'False'}</p>
-            <p>{values.state.answerFive ? 'True' : 'False'}</p>
+            <div>
+                <h1>Correct Answers</h1>
+                <p>Q1)4, Q2)option-a,option-b, Q3)option-c, Q4)True, Q5)option-d </p>
+            </div>
+            <Chart
+                chartType="PieChart"
+                data={data}
+                options={options}
+                width={"100%"}
+                height={"400px"}
+            />
         </div>
     )
 }

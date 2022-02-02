@@ -9,21 +9,6 @@ const Results: React.FC = () => {
 
     useEffect(() => {
         let count = 0
-        if (values.state.answerOne) {
-            count += 1
-        }
-        if (values.state.answerTwo) {
-            count += 1
-        }
-        if (values.state.answerThree) {
-            count += 1
-        }
-        if (values.state.answerFour) {
-            count += 1
-        }
-        if (values.state.answerFive) {
-            count += 1
-        }
         setNoOfCorrect(count)
     },[values.state])
 

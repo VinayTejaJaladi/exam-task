@@ -1,71 +1,9 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from "../../userContext";
-import Blanks from '../Blanks';
-import MCQ from '../MCQ';
-import Matching from "../MatchTheFollowing";
-import TrueOrFalse from "../TrueOrFalse";
-import MultipleAnswers from "../MultipleAnswer";
 import Header from "../Header/Header";
 import './questions.css';
 
-
-const questions = [
-    {
-        type: 'blanks',
-        typeId: 1,
-        question: 'What is the result of 1+3 ? Enter in digits(ex. 1,2,3)',
-        answer: '3',
-    },
-    {
-        type: 'multiple',
-        typeId: 2,
-        question: 'How can we achieve the value 5 from below options',
-        options: [
-            {opitonA: '2+3'},
-            {optionB: '5+0'},
-            {optionC: '3+5'},
-            {optionD: '4+3'}
-        ],
-        answer: 'ab'
-    },
-    {
-        type: 'mcq',
-        typeId: 3,
-        question: 'What is the result of 3+3 ?',
-        options: [
-            {opitonA: '8'},
-            {optionB: '4'},
-            {optionC: '6'},
-            {optionD: '5'}
-        ],
-        answer: 'c'
-    },
-    {
-        type: 'torf',
-        typeId:4,
-        question: 'The value of 4+3 is 7. True or False',
-        answer: 'true'
-    },
-    {
-        type: 'match',
-        typeId: 5,
-        question: 'Match the following questions with correct answers.',
-        matches: [
-            {a:'Answer of 2+3 is',1:'10'},
-            {b:'Answer of 4+9 is',2:'13'},
-            {c:'Answer of 3+6 is',3:'9'},
-            {d:'Answer of 1+9 is',4:'5'}
-        ],
-        options: [
-            {optionA: 'A-2,B-3,C-4,D-1'},
-            {optionB: 'A-2,B-3,C-1,D-4'},
-            {optionC: 'A-4,B-3,C-2,D-1'},
-            {optionD: 'A-4,B-2,C-3,D-1'}
-        ],
-        answer: 'd'
-    }
-]
 
 const Questions: React.FC = () => {
     const navigate = useNavigate();
@@ -74,7 +12,6 @@ const Questions: React.FC = () => {
     const [three, setThree] = useState({ answered: false, answer: '', isCorrect: false });
     const [four, setFour] = useState({ answered: false, answer: '', isCorrect: false });
     const [five, setFive] = useState({ answered: false, answer: '', isCorrect: false });
-    const [answers, setAnswers] = useState([{one:''},{two:''},{three:''},{four: ''},{five:''}])
     const [question, setQuestion] = useState(1);
 
     const values = useContext(UserContext);
@@ -267,17 +204,27 @@ const Questions: React.FC = () => {
         )
     }
 
-    const currentQuestion = () => {
-        const currentQues = questions.filter((ques) => ques.typeId===question)
-        switch (question){
+    const renderQuestion = () => {
+        switch (question) {
             case 1:
-                // return <Blanks details={currentQues} />
-                
+                return QuestionOne()
+            case 2:
+                return QuestionTwo()
+            case 3:
+                return QuestionThree()
+            case 4:
+                return QuestionFour()
+            case 5:
+                return QuestionFive()
         }
     }
 
     const onClickSubmit = () => {
-        values.dispatch({value: [], type:'answers'})
+        values.dispatch({ value: one.isCorrect, type: 'one' })
+        values.dispatch({ value: two.isCorrect, type: 'two' })
+        values.dispatch({ value: three.isCorrect, type: 'three' })
+        values.dispatch({ value: four.isCorrect, type: 'four' })
+        values.dispatch({ value: five.isCorrect, type: 'five' })
         navigate('/results')
     }
 
@@ -285,7 +232,7 @@ const Questions: React.FC = () => {
         <div className="bg-container">
             <Header setResponse={setQuestion} buttonStatus={{ one: one.answered, two: two.answered, three: three.answered, four: four.answered, five: five.answered }} />
             <div className="exam-container">
-                {}
+                {renderQuestion()}
             </div>
             <button className="final-submit" type="button" onClick={() => onClickSubmit()} >Submit Answers</button>
         </div>

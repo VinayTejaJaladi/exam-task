@@ -1,5 +1,5 @@
-import React, { useReducer } from 'react';
-import { Routes, Route, BrowserRouter} from 'react-router-dom';
+import React, { useReducer, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './components/Home/Home';
 import Questions from './components/Questions/Questions';
@@ -17,8 +17,16 @@ const reducer = (state: State, action: Action) => {
     case 'form':
       console.log({ ...state, ...action.value })
       return { ...state, ...action.value }
-    case 'answers':
-      return { ...state, answers: action.value }
+    case 'one':
+      return { ...state, answerOne: action.value }
+    case 'two':
+      return { ...state, answerTwo: action.value }
+    case 'three':
+      return { ...state, answerThree: action.value }
+    case 'four':
+      return { ...state, answerFour: action.value }
+    case 'five':
+      return { ...state, answerFive: action.value }
     default:
       return state
   }
@@ -28,15 +36,18 @@ const reducer = (state: State, action: Action) => {
 const App: React.FC = () => {
   const [data, dispatch] = useReducer(reducer, initialState)
 
+  useEffect(() => {
+    localStorage.setItem('state', JSON.stringify(data))
+  }, [data])
+
+
   return (
     <UserContext.Provider value={{ state: data, dispatch }}>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='questions' element={<Questions />} />
-          <Route path='results' element={<Results />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='questions' element={<Questions />} />
+        <Route path='results' element={<Results />} />
+      </Routes>
     </UserContext.Provider>
   );
 }

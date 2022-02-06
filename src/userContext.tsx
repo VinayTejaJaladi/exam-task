@@ -4,20 +4,28 @@ export interface State {
   name: string,
   gender: string,
   language: string,
-  answers: string[]|boolean[]
+  answerOne: string | boolean,
+  answerTwo: string | boolean,
+  answerThree: string | boolean,
+  answerFour: string | boolean,
+  answerFive: string | boolean,
 }
 
 let initialState: State = {
   name: '',
   gender: '',
   language: '',
-  answers: []
+  answerOne: '',
+  answerTwo: '',
+  answerThree: '',
+  answerFour: '',
+  answerFive: '',
 }
 
-// const storage = localStorage.getItem('state')
-// if(storage){
-//   initialState = JSON.parse(storage)
-// }
+const storage = localStorage.getItem('state')
+if(storage){
+  initialState = JSON.parse(storage)
+}
 
 
 const UserContext = createContext<{ state: State, dispatch: React.Dispatch<any> }>({ state: initialState, dispatch: () => null });
